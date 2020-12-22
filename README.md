@@ -1,4 +1,4 @@
-# react-ts-template
+# react-typescript-template
 
 ### 安装依赖
 
@@ -28,4 +28,4 @@ https://g2.antv.vision/zh/docs/manual/getting-started
 ```
 https://ant.design/components/overview-cn/
 ```
-# react-typescript-template
+
