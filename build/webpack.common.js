@@ -7,7 +7,10 @@ module.exports = {
     main: './src/index.tsx'
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@':path.resolve(__dirname,'src')
+    }
   },
   module: {
     rules: [{

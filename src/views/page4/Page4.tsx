@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-function Page4() {
+function Page4(){
   return (
-      <div className="App">
-        <div>4</div>
-      </div>
-  )
+    <div className="App">
+      <div>4</div>
+    </div>
+  );
 }
 
-export default Page4
+export default Page4;
