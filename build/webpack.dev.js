@@ -14,7 +14,7 @@ const devConfig = {
 		hot: true,
     proxy: {
       '^/api': {
-        target: 'https://dev-dyt.xiaoheiban.cn',
+        target: 'https://dev-dyt.xxxxxxx.cn',
         changeOrigin: true
       }
     }
