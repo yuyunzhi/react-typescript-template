@@ -9,7 +9,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
     alias: {
-      '@':path.resolve(__dirname,'src')
+      '@':path.resolve(__dirname,'../src')
     }
   },
   module: {
@@ -18,13 +18,15 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel-loader'
     }, {
-      test: /\.(jpg|png|gif)$/,
+      test: /\.(jpg|png|gif|jpeg)$/,
       use: {
         loader: 'url-loader',
         options: {
           name: '[name]_[hash].[ext]',
           outputPath: 'images/',
-          limit: 10240
+          //小于 10kb 就走 url-loader 使用base64的形式
+          // 否则就走file-loader 产出url的形式
+          limit: 10 * 1024
         }
       }
     }, {
