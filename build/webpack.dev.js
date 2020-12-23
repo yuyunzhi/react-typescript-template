@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const commonConfig = require('./webpack.common.js');
+const path = require('path')
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const devConfig = {
@@ -27,8 +28,9 @@ const devConfig = {
           {
             loader: 'css-loader',
             options:{
-              importLoaders: 2,// 表示scss文件导入了scss文件依然走postcss-loader sass-loader
-              modules:true // 开启css模块化
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]'
+              }
             }
           },
           'less-loader',
