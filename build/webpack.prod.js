@@ -8,16 +8,17 @@ const prodConfig = {
   module:{
     rules:[
       {
-        test: /\.scss$/,
+        test: /\.less$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
-            options: {
-              importLoaders: 2
+            options:{
+              importLoaders: 2,// 表示scss文件导入了scss文件依然走postcss-loader sass-loader
+              modules:true // 开启css模块化
             }
           },
-          'sass-loader',
+          'less-loader',
           'postcss-loader'
         ]
       }, {
