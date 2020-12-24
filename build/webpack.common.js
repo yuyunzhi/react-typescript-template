@@ -55,24 +55,32 @@ module.exports = {
     },
     usedExports: true, // tree shaking 使用
     splitChunks: {
-      chunks: 'all'
-      // cacheGroups: {
-      //   vendors: {
-      //     test: /[\\/]node_modules[\\/]/, // 如果在node_modules里，那么会打包到vendors.js
-      //     priority: -10, // 比如jquery 符合vendors 也符合default，值越大，说明优先级更大
-      //     filename:'vendors.[contentHash].js' // 表示所有的第三方打包到一个叫vendors.js文件
-      //   },
-      //   default: { // 如果是引入自己在项目里写的模块引入走这里，非node_modules
-      //     // minChunks: 2,
-      //     priority: -20,// 值越大，说明优先级更大
-      //     reuseExistingChunk: true, // 如果代码已经打包过，重复引用时就不会再分割打包，而是复用之前的。
-      //     filename: 'common.[contentHash].js'
-      //   }
-      // }
+      chunks: 'all',
+      /**
+       * initial 入口chunk,对于异步导入的文件不处理
+       * async 异步 chunk ，只对意不导入的文件处理
+       * all 全部 chunk
+       */
+      cacheGroups: {
+        // 第三方模块
+        vendors: {
+          test: /[\\/]node_modules[\\/]/, // 如果在node_modules里，那么会打包到vendors.js
+          priority: 1, // 比如jquery 符合vendors 也符合default，值越大，说明优先级更大
+          filename:'vendors.[contentHash].js' ,// 表示所有的第三方打包到一个叫vendors.js文件
+          minChunks: 1, // 第三方最少复用几次拆开
+          minSize: 0,
+        },
+        default: { // 如果是引入自己在项目里写的模块引入走这里，非node_modules
+          minChunks: 2, // 公共模块最少复用几次拆开
+          priority:0,// 值越大，说明优先级更大
+          reuseExistingChunk: true, // 如果代码已经打包过，重复引用时就不会再分割打包，而是复用之前的。
+          filename: 'common.[contentHash].js'
+        }
+      }
     }
   },
   output: {
-    filename: '[name].[contentHash].js',
+    filename: '[name].js',
     chunkFilename: '[name].chunk.js',// 间接引入打包的走这个地方
     path: path.resolve(__dirname, '../dist')
   }
