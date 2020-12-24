@@ -34,18 +34,12 @@
     "isolatedModules": true,
     "noEmit": true
   },
-  "include": [
-    "types/*.d.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "tests/**/*.ts",
-    "tests/**/*.tsx",
-    "build.ts",
-    "dev.ts"
-  ],
+  "paths": {
+    "src": ["src/*"]
+  },
+  "include": ["src"],
   "exclude": [
     "node_modules",
-    "src/api/**/*.ts",
-    "src/routers"
+    "dist"
   ]
 }

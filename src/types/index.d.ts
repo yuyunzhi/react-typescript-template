@@ -5,10 +5,16 @@ declare interface Window {
   mozCancelAnimationFrame: (handle: number) => void
 }
 
+declare module '*.tsx' {
+  const src: string;
+  export default src;
+}
+
 declare module '*.svg' {
   const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
   export default content
 }
+
 declare module '*.avif' {
   const src: string;
   export default src;

@@ -1,8 +1,7 @@
 import React from 'react'
 import styles from './Page1.less'
-import Image1 from '@/assets/img/1.png'
-import Image2 from '@/assets/img/2.jpeg'
-
+import Image1 from 'src/assets/img/1.png'
+import Image2 from 'src/assets/img/2.jpeg'
 function Page1() {
 
   return (
