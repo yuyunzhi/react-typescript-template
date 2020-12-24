@@ -67,7 +67,14 @@ module.exports = {
           test: /[\\/]node_modules[\\/]/, // 如果在node_modules里，那么会打包到vendors.js
           priority: 1, // 比如jquery 符合vendors 也符合default，值越大，说明优先级更大
           filename:'vendors.[contentHash].js' ,// 表示所有的第三方打包到一个叫vendors.js文件
-          minChunks: 1, // 第三方最少复用几次拆开
+          minChunks: 1, // 第三方最少复用几次
+          minSize: 0,
+        },
+        styles:{
+          test: /\.css$/,
+          priority: 2,
+          minChunks: 1,
+          name:'styles',
           minSize: 0,
         },
         default: { // 如果是引入自己在项目里写的模块引入走这里，非node_modules
@@ -80,8 +87,8 @@ module.exports = {
     }
   },
   output: {
-    filename: '[name].js',
-    chunkFilename: '[name].chunk.js',// 间接引入打包的走这个地方
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[hash].js',
     path: path.resolve(__dirname, '../dist')
   }
 }

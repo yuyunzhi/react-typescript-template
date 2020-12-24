@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": false,
   "author": "yuyunzhi",
+  "sideEffects": [
+    "*.css"
+  ],
   "description": "react-ts-template",
   "main": "dist/index.js",
   "module": "dist/index.js",
