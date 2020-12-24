@@ -5,9 +5,7 @@ import {router} from "../../router/index"
 
 function Index() {
 
-  // Api.ChooseClass.getSchoolsList().then(res=>{
-  //   console.log('res',res);
-  // })
+
 
   const goTwo = () => {
     router.push('/antv')
