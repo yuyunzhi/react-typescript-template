@@ -21,7 +21,7 @@ const routerMap = [
 
 export default routerMap
 
-function getUrl(path:any) {
+function getUrl(path) {
   const href = window.location.href
   const i = href.indexOf('#')
   const base = i >= 0 ? href.slice(0, i) : href
@@ -29,13 +29,13 @@ function getUrl(path:any) {
 }
 
 export const router = {
-  push(url: string) {
+  push(url) {
     window.location.hash = url
   },
-  replace(url: string) {
+  replace(url) {
     window.location.replace(getUrl(url))
   },
-  go(n: number) {
+  go(n) {
     window.history.go(n)
   }
 }

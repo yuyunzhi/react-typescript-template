@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HappyPack = require('happypack')
 
 module.exports = {
   entry: {
@@ -15,9 +16,10 @@ module.exports = {
   },
   module: {
     rules: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader?cacheDirectory'
+      test: /\.js$/,
+      // 把对 .js 文件的处理转交给 id 为 babel 的 HappyPack 实例
+      use: ['happypack/loader?id=babel'], // 固定写法
+      include: path.resolve(__dirname,'../src')
     }, {
       test: /\.(jpg|png|gif|jpeg)$/,
       use: {
@@ -48,7 +50,14 @@ module.exports = {
     }),
     new CleanWebpackPlugin(['dist'],{
       root: path.resolve(__dirname, '../')
-    })
+    }),
+    // happyPack 开启多进程打包
+    new HappyPack({
+      // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
+      id: 'babel',
+      // 如何处理 .js 文件，用法和 Loader 配置中一样
+      loaders: ['babel-loader?cacheDirectory'] // cacheDirectory 表示缓存已经编译过的ES6语法
+    }),
   ],
   optimization: {
     runtimeChunk:{
