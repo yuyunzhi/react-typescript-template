@@ -88,7 +88,7 @@ module.exports = {
     }
   },
   output: {
-    filename: '[name].[hash].js',
+    filename: '[name].[hash].js', // 加上hash 并且做了code spliting 那么就可以做浏览器缓存了
     chunkFilename: '[name].[hash].js',
     path: path.resolve(__dirname, '../dist')
   }
