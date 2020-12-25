@@ -9,6 +9,7 @@ function Index() {
   }
 
   const asyncGetJs = () => {
+    // 异步加载
       import('./asyncJs').then(res=>{
         console.log('res async Js',res)
       })
