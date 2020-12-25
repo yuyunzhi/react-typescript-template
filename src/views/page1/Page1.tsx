@@ -1,6 +1,5 @@
 import React , {useState}from 'react'
 import styles from './Page1.less'
-// import Image1 from 'src/assets/img/1.png'
 import Image2 from 'src/assets/img/2.jpeg'
 import _ from 'lodash'
 function Page1() {

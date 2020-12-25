@@ -17,11 +17,11 @@ module.exports = {
     rules: [{
       test: /\.jsx?$/,
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      loader: 'babel-loader?cacheDirectory'
     }, {
       test: /\.(jpg|png|gif|jpeg)$/,
       use: {
-        loader: 'url-loader',
+        loader: 'url-loader', // 开启缓存 没有改过的ES6 语法就不再编译
         options: {
           name: '[name]_[hash].[ext]',
           outputPath: 'images/',
