@@ -9,7 +9,7 @@ const devConfig = {
 		contentBase: './dist',
 		open: true,
 		port: 8080,
-		hot: true,
+    hot: true, // 开启热更新的功能
     proxy: {
       '^/api': {
         target: 'https://dev-dyt.xxxxxxx.cn',
@@ -45,7 +45,7 @@ const devConfig = {
     ]
   },
 	plugins: [
-		new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin()
 	]
 }
 
