@@ -15,7 +15,7 @@ yarn start
 
 ### 打包
 
-预打包
+预打包 本地开发
 
 ```
 yarn dll

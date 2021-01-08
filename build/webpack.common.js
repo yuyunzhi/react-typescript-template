@@ -2,40 +2,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack')
-const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
-const webpack = require('webpack')
-const fs = require('fs')
-
-const plugins = [
-  new HtmlWebpackPlugin({
-    template: './public/index.html'
-  }),
-  new CleanWebpackPlugin(['dist'],{
-    root: path.resolve(__dirname, '../')
-  }),
-  // happyPack 开启多进程打包
-  new HappyPack({
-    // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
-    id: 'babel',
-    // 如何处理 .js 文件，用法和 Loader 配置中一样
-    loaders: ['babel-loader?cacheDirectory'] // cacheDirectory 表示缓存已经编译过的ES6语法
-  }),
-]
-
-const files = fs.readdirSync(path.resolve(__dirname, '../dll'))
-files.forEach(file => {
-  if (/.*\.dll.js/.test(file)) {
-    plugins.push(new AddAssetHtmlWebpackPlugin({ // 在html里添加新的静态资源 script 引入
-      filepath: path.resolve(__dirname, '../dll', file)
-    }))
-  }
-
-  if (/.*\.manifest.json/.test(file)) {
-    plugins.push(new webpack.DllReferencePlugin({ // 在映射表里找到对应的第三方模块使用全局变量使用，而不是直接从node_modules里找
-      manifest: path.resolve(__dirname, '../dll/', file)
-    }))
-  }
-})
 
 module.exports = {
   entry: {
@@ -61,9 +27,9 @@ module.exports = {
         options: {
           name: '[name]_[hash].[ext]',
           outputPath: 'images/',
-          //小于 10kb 就走 url-loader 使用base64的形式
+          //小于 5kb 就走 url-loader 使用base64的形式
           // 否则就走file-loader 产出url的形式
-          limit: 10 * 1024
+          limit: 5 * 1024
         }
       }
     }, {
@@ -78,7 +44,21 @@ module.exports = {
       }
     ]
   },
-  plugins,
+  plugins:[
+    new HtmlWebpackPlugin({
+      template: './public/index.html'
+    }),
+    new CleanWebpackPlugin(['dist'],{
+      root: path.resolve(__dirname, '../')
+    }),
+    // happyPack 开启多进程打包
+    new HappyPack({
+      // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
+      id: 'babel',
+      // 如何处理 .js 文件，用法和 Loader 配置中一样
+      loaders: ['babel-loader?cacheDirectory'] // cacheDirectory 表示缓存已经编译过的ES6语法
+    }),
+  ],
   optimization: {
     runtimeChunk:{
       name:'runtime'
@@ -88,7 +68,7 @@ module.exports = {
       chunks: 'all',
       /**
        * initial 入口chunk,对于异步导入的文件不处理
-       * async 异步 chunk ，只对意不导入的文件处理
+       * async 异步 chunk ，只对异步导入的文件处理
        * all 全部 chunk
        */
       cacheGroups: {
