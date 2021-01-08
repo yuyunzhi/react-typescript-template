@@ -8,7 +8,7 @@ const devConfig = {
 	devServer: {
 		contentBase: './dist',
 		open: true,
-		port: 8080,
+		port: 8081,
     hot: true, // 开启热更新的功能
     proxy: {
       '^/api': {

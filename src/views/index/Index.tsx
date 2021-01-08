@@ -23,8 +23,8 @@ function Index() {
 
   return (
       <div className={styles.app}>
-        <div onClick={goTwo}>入口跳转</div>
-        <div className={styles.popover} onClick={asyncGetJs}>异步加载</div>
+        <div onClick={goTwo}>入口跳转1</div>
+        <div className={styles.popover} onClick={asyncGetJs}>异步加载1</div>
 
         <div>{list.length}</div>
         {list.length > 0 && list.map((item,index)=>{

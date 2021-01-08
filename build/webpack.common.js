@@ -2,6 +2,40 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack')
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
+const webpack = require('webpack')
+const fs = require('fs')
+
+const plugins = [
+  new HtmlWebpackPlugin({
+    template: './public/index.html'
+  }),
+  new CleanWebpackPlugin(['dist'],{
+    root: path.resolve(__dirname, '../')
+  }),
+  // happyPack 开启多进程打包
+  new HappyPack({
+    // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
+    id: 'babel',
+    // 如何处理 .js 文件，用法和 Loader 配置中一样
+    loaders: ['babel-loader?cacheDirectory'] // cacheDirectory 表示缓存已经编译过的ES6语法
+  }),
+]
+
+const files = fs.readdirSync(path.resolve(__dirname, '../dll'))
+files.forEach(file => {
+  if (/.*\.dll.js/.test(file)) {
+    plugins.push(new AddAssetHtmlWebpackPlugin({ // 在html里添加新的静态资源 script 引入
+      filepath: path.resolve(__dirname, '../dll', file)
+    }))
+  }
+
+  if (/.*\.manifest.json/.test(file)) {
+    plugins.push(new webpack.DllReferencePlugin({ // 在映射表里找到对应的第三方模块使用全局变量使用，而不是直接从node_modules里找
+      manifest: path.resolve(__dirname, '../dll/', file)
+    }))
+  }
+})
 
 module.exports = {
   entry: {
@@ -44,21 +78,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html'
-    }),
-    new CleanWebpackPlugin(['dist'],{
-      root: path.resolve(__dirname, '../')
-    }),
-    // happyPack 开启多进程打包
-    new HappyPack({
-      // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
-      id: 'babel',
-      // 如何处理 .js 文件，用法和 Loader 配置中一样
-      loaders: ['babel-loader?cacheDirectory'] // cacheDirectory 表示缓存已经编译过的ES6语法
-    }),
-  ],
+  plugins,
   optimization: {
     runtimeChunk:{
       name:'runtime'

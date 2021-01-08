@@ -41,7 +41,8 @@
     "lint": "eslint src --ext .js,.ts,.tsx src",
     "dev-build": "webpack --profile --config ./build/webpack.dev.js",
     "start": "webpack-dev-server --config ./build/webpack.dev.js",
-    "build": "webpack --config ./build/webpack.prod.js"
+    "build": "webpack --config ./build/webpack.prod.js",
+    "dll": "webpack --config ./build/webpack.dll.js"
   },
   "browserslist": {
     "production": [
@@ -88,6 +89,7 @@
     "webpack-cli": "^3.1.2",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-dev-server": "^3.11.0",
-    "webpack-merge": "^4.1.5"
+    "webpack-merge": "^4.1.5",
+    "add-asset-html-webpack-plugin": "^3.1.3"
   }
 }

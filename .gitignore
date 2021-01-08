@@ -10,6 +10,7 @@
 
 # production
 /dist
+/dll
 # misc
 .DS_Store
 .env.local

@@ -13,19 +13,16 @@ yarn start
 ```
 
 
-### 可视化库
+### 打包
 
-选用AntV
-
-```
-https://g2.antv.vision/zh/docs/manual/getting-started
-```
-
-### UI组件库
-
-选用 AntD 
+预打包
 
 ```
-https://ant.design/components/overview-cn/
+yarn dll
 ```
+
+```
+yarn build
+```
+
 
