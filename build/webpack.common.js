@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HappyPack = require('happypack')
+const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin')
 
 module.exports = {
   entry: {
@@ -12,7 +13,9 @@ module.exports = {
     alias: {
       '@':path.join(__dirname,'../src'),
       'src':path.join(__dirname,'../src')
-    }
+    },
+    // 针对Npm中第三方模块优先采用 jsnext:main 中指向的 ES6模块化语法
+    mainFields: ['jsnext:main', 'browser','main']
   },
   module: {
     rules: [{
@@ -58,6 +61,8 @@ module.exports = {
       // 如何处理 .js 文件，用法和 Loader 配置中一样
       loaders: ['babel-loader?cacheDirectory'] // cacheDirectory 表示缓存已经编译过的ES6语法
     }),
+      // 开启 Scope hosting // 把打包后的代码多个函数作用域合并成一个函数，减少打包体积，降低内存使用
+      new ModuleConcatenationPlugin(),
   ],
   optimization: {
     runtimeChunk:{
